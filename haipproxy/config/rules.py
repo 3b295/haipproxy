@@ -13,7 +13,9 @@ from ..config.settings import (
     VALIDATED_WEIBO_QUEUE, TTL_WEIBO_QUEUE,
     SPEED_WEIBO_QUEUE, TEMP_ZHIHU_QUEUE,
     VALIDATED_ZHIHU_QUEUE, TTL_ZHIHU_QUEUE,
-    SPEED_ZHIHU_QUEUE)
+    SPEED_ZHIHU_QUEUE, SPEED_AMAZON_QUEUE,
+    TEMP_AMAZON_QUEUE, TTL_AMAZON_QUEUE,
+    VALIDATED_AMAZON_QUEUE)
 
 
 __all__ = ['CRAWLER_TASKS', 'VALIDATOR_TASKS', 'CRAWLER_TASK_MAPS',
@@ -764,6 +766,14 @@ VALIDATOR_TASKS = [
         'interval': 5,
         'enable': 1,
     },
+    {
+        'name': 'amazon',
+        'task_queue': TEMP_AMAZON_QUEUE,
+        'resource': VALIDATED_AMAZON_QUEUE,
+        'interval': 5,
+        'enable': 1,
+
+    }
 ]
 
 # validators will fetch proxies from the following queues
@@ -772,14 +782,16 @@ TEMP_TASK_MAPS = {
     'http': TEMP_HTTP_QUEUE,
     'https': TEMP_HTTPS_QUEUE,
     'weibo': TEMP_WEIBO_QUEUE,
-    'zhihu': TEMP_ZHIHU_QUEUE
+    'zhihu': TEMP_ZHIHU_QUEUE,
+    'amazon': TEMP_AMAZON_QUEUE,
 }
 
 # target website that use http protocol
 HTTP_TASKS = ['http']
 
 # target website that use https protocol
-HTTPS_TASKS = ['https', 'zhihu', 'weibo']
+# HTTPS_TASKS = ['https', 'zhihu', 'weibo', 'amazon']
+HTTPS_TASKS = ['https', 'amazon']
 
 # todo the three maps may be combined in one map
 # validator scheduler and clients will fetch proxies from the following queues
@@ -787,7 +799,8 @@ SCORE_MAPS = {
     'http': VALIDATED_HTTP_QUEUE,
     'https': VALIDATED_HTTPS_QUEUE,
     'weibo': VALIDATED_WEIBO_QUEUE,
-    'zhihu': VALIDATED_ZHIHU_QUEUE
+    'zhihu': VALIDATED_ZHIHU_QUEUE,
+    'amazon': VALIDATED_AMAZON_QUEUE,
 }
 
 # validator scheduler and clients will fetch proxies from the following queues which are verified recently
@@ -795,13 +808,15 @@ TTL_MAPS = {
     'http': TTL_HTTP_QUEUE,
     'https': TTL_HTTPS_QUEUE,
     'weibo': TTL_WEIBO_QUEUE,
-    'zhihu': TTL_ZHIHU_QUEUE
+    'zhihu': TTL_ZHIHU_QUEUE,
+    'amazon': TTL_AMAZON_QUEUE,
 }
 
 SPEED_MAPS = {
     'http': SPEED_HTTP_QUEUE,
     'https': SPEED_HTTPS_QUEUE,
     'weibo': SPEED_WEIBO_QUEUE,
-    'zhihu': SPEED_ZHIHU_QUEUE
+    'zhihu': SPEED_ZHIHU_QUEUE,
+    'amazon': SPEED_AMAZON_QUEUE,
 }
 
